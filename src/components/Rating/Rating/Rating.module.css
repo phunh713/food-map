@@ -1,0 +1,28 @@
+.rating {
+    display: flex;
+    padding: 10px 0;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.rating span {
+    margin-right: 10px;
+}
+
+.rating img {
+    width: 28px;
+    padding: 3px;
+}
+
+.rating img:hover {
+    cursor: pointer;
+}
+
+.rating-note {
+    font-size: 0.8em;
+    font-style: italic;
+}
+
+.stars-wrapper {
+    display: flex;
+}

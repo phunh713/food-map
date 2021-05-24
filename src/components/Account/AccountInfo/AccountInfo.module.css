@@ -1,0 +1,47 @@
+.account-avatar-username {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 25px;
+	background-color: #fff;
+	box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%);
+	border-radius: 3px;
+}
+
+.avatar-wrapper {
+	position: relative;
+}
+
+.gender-icon {
+	width: 30px;
+    margin-left: 10px;
+}
+
+.avatar-wrapper .avatar {
+	width: 180px;
+	height: 180px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.account-avatar-username h1 {
+	margin: 15px 0 5px 0;
+}
+
+.account-avatar-username p {
+	margin: 5px 0 15px 0;
+}
+
+.btn {
+	color: #fff;
+	border: none;
+	padding: 5px 15px;
+	background-color: #32a9d7;
+	font-size: 1.1em;
+	box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%);
+}
+
+.btn:hover {
+	cursor: pointer;
+}

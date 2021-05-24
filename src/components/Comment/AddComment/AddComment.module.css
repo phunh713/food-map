@@ -1,0 +1,17 @@
+.add-comment-form {
+	display: flex;
+	margin: 20px 0;
+    gap: 10px;
+}
+
+.add-comment-form .form-fields-wrapper {
+	flex: 1;
+}
+.add-comment-form .form-actions {
+	position: relative;
+}
+.add-comment-form .form-actions button {
+	margin-top: 24px;
+	height: 52px;
+	width: 100%;
+}

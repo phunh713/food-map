@@ -1,0 +1,12 @@
+.filter-wrapper {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-wrapper div {
+    width: 33%;
+}
+
+.filter-wrapper div label {
+    font-size: 0.8rem;
+}

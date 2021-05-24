@@ -1,0 +1,207 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
+
+body {
+	margin: 0;
+	font-family: "Roboto", sans-serif !important;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+img {
+	width: 100%;
+}
+
+*:focus {
+	outline: none;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar-track {
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar {
+	width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	background-color: #4094c5;
+}
+
+/* GLOBAL STYPE */
+
+.form {
+	width: 60%;
+	margin: 20px auto;
+	position: relative;
+	padding: 10px;
+}
+
+.form-group {
+	display: flex;
+	align-items: flex-start;
+	margin-bottom: 10px;
+}
+
+.form-group .form-control {
+	flex-grow: 1;
+	flex: 1;
+	margin-right: 10px;
+	margin-bottom: 0;
+}
+
+.form-group > button {
+	min-width: 40px;
+	padding: 0 10px;
+	line-height: 36px;
+	color: #fff;
+	font-weight: bold;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%);
+}
+
+.form-group > button:first-of-type {
+	background-color: #32a9d7;
+}
+
+.form-group > button:nth-of-type(2) {
+	background-color: #ee2756;
+}
+
+.form-group > button:hover {
+	cursor: pointer;
+}
+
+.form-group label {
+	display: none;
+}
+
+.form-control {
+	display: flex;
+	margin-bottom: 20px;
+	flex-direction: column;
+	position: relative;
+}
+
+.form-control.input-button-group {
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.form-control.input-button-group label {
+	margin: 0 !important;
+	width: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-width: 1px 0 1px 1px;
+	border-style: solid;
+	border-color: rgb(133, 133, 133);
+}
+
+.form-control.input-button-group .error {
+	width: 100%;
+}
+
+.form-control.input-button-group label {
+	margin-right: 10px;
+}
+
+.form-control label {
+	margin-bottom: 5px;
+}
+
+.form-control .input-group {
+	display: flex;
+	flex-grow: 1;
+}
+
+.form-control input,
+.form-control select,
+.form-control textarea {
+	padding: 10px 5px;
+	flex-grow: 1;
+	font-family: "Roboto", sans-serif !important;
+	border: none;
+	box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%);
+}
+
+.form-control button {
+	padding: 10px 5px;
+	width: 12%;
+}
+
+.form-control .error {
+	color: lightcoral;
+	font-size: 0.7rem;
+	font-style: italic;
+	margin-top: 5px;
+}
+
+.form-action .btn {
+	padding: 7px 15px;
+	background-color: #32a9d7;
+	border: none;
+	color: #fff;
+	font-size: 1.1rem;
+	margin-right: 15px;
+	box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%);
+}
+
+.form-action .btn.btn-danger {
+	background-color: #ee2756;
+}
+
+.form-action .btn:hover {
+	cursor: pointer;
+}
+
+@media screen and (max-width: 1350px) {
+	.form {
+		width: 80%;
+	}
+}
+
+@media screen and (max-width: 800px) {
+    ::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+/* SLICK SLIDER */
+.slick-prev {
+	z-index: 1;
+	left: 5px !important;
+}
+
+.slick-next {
+	z-index: 1;
+	right: 5px !important;
+}
+
+.slick-prev,
+.slick-next {
+	height: 35px;
+	width: 35px;
+}
+
+.slick-dots {
+	bottom: 10px !important;
+}
+
+.slick-dots li button:before {
+	font-size: 15px !important;
+	color: #fff !important;
+	opacity: 0.45 !important;
+}
+
+.slick-dots li.slick-active button:before {
+	opacity: 1 !important;
+}
