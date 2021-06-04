@@ -22,6 +22,7 @@ const useLocationSearchForm = (required, editValue = null) => {
 
 	const onChangeHandler = (dataObj) => {
 		let validateResult;
+        console.log(dataObj)
 		if (required) {
 			for (let validation of form.validation) {
 				validateResult = checkInputValid({ ...validation, value: dataObj.value });

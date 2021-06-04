@@ -25,6 +25,10 @@ export const checkInputValid = (validation) => {
 	if (validation.type === "stringIncludes") {
 		return stringIncludes(validation.value, validation.config);
 	}
+
+    if (validation.type === "addressValid") {
+        return addressValidRule(validation.value)
+    }
 };
 
 const valueIsValid = { isValid: true, errorMessage: null };
@@ -74,6 +78,10 @@ const passwordMatch = (value, config) => {
 	}
 };
 
+const addressValidRule = (value) => {
+    
+}
+
 export const stringIncludes = (value, config) => {
 	if (value.includes(config)) {
 		return valueIsValid;
@@ -84,4 +92,3 @@ export const stringIncludes = (value, config) => {
 		};
 	}
 };
-

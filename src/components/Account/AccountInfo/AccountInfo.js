@@ -61,6 +61,10 @@ const AccountInfo = () => {
 		}
 	};
 
+	const handleImgError = (e) => {
+		e.target.src = "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png";
+	};
+
 	let genderSrc;
 
 	if (user.gender === "Male") genderSrc = maleIcon;
@@ -92,6 +96,7 @@ const AccountInfo = () => {
 				<div className={classes["avatar-wrapper"]}>
 					<img
 						className={classes.avatar}
+						onError={handleImgError}
 						src={
 							user.avatar ||
 							`https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png`
