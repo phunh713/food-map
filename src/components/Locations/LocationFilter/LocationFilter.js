@@ -43,11 +43,13 @@ const LocationFilter = ({ onSelectFilter, locations }) => {
 		onSelectFilter(_filterLocations);
 	};
 
+    console.log(district)
+
 	return (
 		<div className={classes["filter-wrapper"]}>
 			<div className="form-control">
 				<label htmlFor="type">Type</label>
-				<select name="type" id="type" onChange={selectTypeHandler}>
+				<select value={type} name="type" id="type" onChange={selectTypeHandler}>
 					{typeSelectOptions.map((type) =>
 						type ? (
 							<option value={type} key={type}>
@@ -60,7 +62,7 @@ const LocationFilter = ({ onSelectFilter, locations }) => {
 
 			<div className="form-control">
 				<label htmlFor="city">City</label>
-				<select name="city" id="city" onChange={selectCityHandler}>
+				<select value={city} name="city" id="city" onChange={selectCityHandler}>
 					{citySelectOptions.map((city) =>
 						city ? (
 							<option value={city} key={city}>
@@ -73,7 +75,7 @@ const LocationFilter = ({ onSelectFilter, locations }) => {
 
 			<div className="form-control">
 				<label htmlFor="district">District</label>
-				<select name="district" id="district" onChange={selectDistrictHandler}>
+				<select value={district} name="district" id="district" onChange={selectDistrictHandler}>
 					{districtSelectOptions.map((district) =>
 						district ? (
 							<option value={district} key={district}>

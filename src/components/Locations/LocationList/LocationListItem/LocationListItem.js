@@ -45,8 +45,6 @@ const LocationListItem = ({ latLng, title, ownerView, id, address, thumbnail, us
 		}
 	}, [sendRequest, userId, ownerView]);
 
-    console.log(isLoading)
-
 	return (
 		<div className={classes["list-item-wrapper"]} onMouseEnter={mouseEnterHandler}>
 			{!isLoading ? (

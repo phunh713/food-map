@@ -57,4 +57,5 @@ const LocationList = ({ locations, ownerView }) => {
 		</>
 	);
 };
+
 export default LocationList;
