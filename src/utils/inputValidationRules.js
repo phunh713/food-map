@@ -26,7 +26,7 @@ export const checkInputValid = (validation) => {
 		return stringIncludes(validation.value, validation.config);
 	}
 
-    if (validation.type === "addressValid") {
+    if (validation.type === "validAddress") {
         return addressValidRule(validation.value)
     }
 };
@@ -79,7 +79,12 @@ const passwordMatch = (value, config) => {
 };
 
 const addressValidRule = (value) => {
-    
+    if (value) return valueIsValid
+
+    return {
+        isValid: false,
+        errorMessage: "Please select address from dropdown menu"
+    }
 }
 
 export const stringIncludes = (value, config) => {
@@ -88,7 +93,7 @@ export const stringIncludes = (value, config) => {
 	} else {
 		return {
 			isValid: false,
-			errorMessage: `Please enter a Valid Value (Input must include ${config})`,
+			errorMessage: `Please enter ${config} address only!`,
 		};
 	}
 };

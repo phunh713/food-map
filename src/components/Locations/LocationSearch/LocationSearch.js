@@ -7,6 +7,8 @@ import classes from "./LocationSearch.module.css";
 
 const LocationSearch = ({ isFormSubmitted, onChange, value, isTouched, isValid, errorMessage }) => {
 	const [isTyping, setIsTyping] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+	const [addressData, setAddressData] = useState(null);
 
 	const dispatch = useDispatch();
 
@@ -24,8 +26,6 @@ const LocationSearch = ({ isFormSubmitted, onChange, value, isTouched, isValid, 
 				district = findAddressComponent(results[0].address_components, "administrative_area_level_2");
 				street = findAddressComponent(results[0].address_components, "route");
 
-                console.log(results[0])
-
 				return getLatLng(results[0]);
 			})
 			.then((latLng) => {
@@ -35,27 +35,37 @@ const LocationSearch = ({ isFormSubmitted, onChange, value, isTouched, isValid, 
 					addressData: { latLng, full_address: address, city, district, street },
 					value: address,
 				});
+				setIsLoading(false);
+				setAddressData({ latLng, full_address: address, city, district, street });
+
+				console.log("select inside");
 			})
 			.catch((error) => {
 				dispatch(mapActions.setAddLocationMarker(null));
 				onChange({ addressData: null, value: address });
 				console.error("Error", error);
+				setIsLoading(false);
+				setAddressData(null);
 			});
 	};
 
 	const handleChange = (value) => {
 		setIsTyping(true);
-		onChange({value: value, searchData: null})
+		onChange({ value: value, addressData: null });
+		console.log("change");
 	};
 
 	const handleBlur = (e) => {
 		setIsTyping(false);
-		getSearchDataToEmit(e.target.value);
-        // onChange({ addressData: null, value: e.target.value });
+		onChange({ addressData, value: e.target.value });
+		console.log("blur");
 	};
 
 	const handleSelect = (address) => {
+		setIsLoading(true);
+		setIsTyping(false);
 		getSearchDataToEmit(address);
+        console.log("select outside");
 	};
 
 	return (
@@ -68,8 +78,9 @@ const LocationSearch = ({ isFormSubmitted, onChange, value, isTouched, isValid, 
 								className: "location-search-input",
 								onBlur: handleBlur,
 							})}
+							disabled={isLoading}
 						/>
-						{!isValid && !isTyping && (isFormSubmitted || isTouched) && (
+						{!isValid && !isTyping && (isFormSubmitted || isTouched) && !isLoading && (
 							<span className="error">{errorMessage}</span>
 						)}
 						{!!suggestions.length && (

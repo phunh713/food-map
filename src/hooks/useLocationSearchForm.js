@@ -11,6 +11,7 @@ const useLocationSearchForm = (required, editValue = null) => {
 			errorMessage: "This Field is Required",
 			validation: [
 				{ type: "required", config: null },
+                { type: "validAddress"},
 				{ type: "stringIncludes", config: "Vietnam" },
 			],
 			addressData: editValue || null,
@@ -22,10 +23,9 @@ const useLocationSearchForm = (required, editValue = null) => {
 
 	const onChangeHandler = (dataObj) => {
 		let validateResult;
-        console.log(dataObj)
 		if (required) {
 			for (let validation of form.validation) {
-				validateResult = checkInputValid({ ...validation, value: dataObj.value });
+				validateResult = checkInputValid({ ...validation, value: validation.type === "validAddress" ? dataObj.addressData : dataObj.value });
 				if (!validateResult.isValid) break;
 			}
 		}

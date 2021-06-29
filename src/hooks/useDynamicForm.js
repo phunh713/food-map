@@ -14,6 +14,7 @@ const useDynamicForm = (dynamicFormObj, dynamicFormName) => {
 	}, [dynamicFormObj.formConfig]);
 
 	let formState = [getcopiedDynamicFormConfig()];
+    
 	if (dynamicFormObj.editValue) {
 		formState = [];
 		for (let valueObj of dynamicFormObj.editValue) {

@@ -24,7 +24,7 @@ const NotFound = React.lazy(() => import("./pages/NotFound/NotFound"));
 const libraries = ["places"];
 
 function App() {
-	const { isLoaded } = useLoadScript({
+	const { isLoaded, loadError } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_API,
 		libraries,
 	});
@@ -35,8 +35,7 @@ function App() {
 		dispatch(autoLoginHandler());
 	}, [dispatch]);
 
-	return (
-		isLoaded && (
+	return isLoaded ? (
 		<Suspense fallback={<LoadingSpinner />}>
 			<Layout>
 				<Switch>
@@ -50,7 +49,10 @@ function App() {
 				</Switch>
 			</Layout>
 		</Suspense>
-		)
+	) : loadError ? (
+		<h1>Something wrong while loadscript</h1>
+	) : (
+		<LoadingSpinner />
 	);
 }
 

@@ -3,7 +3,6 @@ import { Redirect, Route } from "react-router";
 
 const RouteAuth = ({ location, component: Component, ...rest }) => {
 	const { user } = useSelector((state) => state.authentication);
-	console.log(user);
 
 	// return (
 	// 	<Route

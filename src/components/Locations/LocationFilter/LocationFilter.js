@@ -32,7 +32,7 @@ const LocationFilter = ({ onSelectFilter, locations }) => {
 
 	const selectCityHandler = (e) => {
 		setCity(e.target.value);
-        setDistrict("all")
+		setDistrict("all");
 		const _filterLocations = getFilterArrayByKeys(locations, { type, city: e.target.value });
 		onSelectFilter(_filterLocations);
 	};
@@ -40,10 +40,9 @@ const LocationFilter = ({ onSelectFilter, locations }) => {
 	const selectDistrictHandler = (e) => {
 		setDistrict(e.target.value);
 		const _filterLocations = getFilterArrayByKeys(locations, { type, district: e.target.value });
+		setCity(_filterLocations[0].addressData.city);
 		onSelectFilter(_filterLocations);
 	};
-
-    console.log(district)
 
 	return (
 		<div className={classes["filter-wrapper"]}>

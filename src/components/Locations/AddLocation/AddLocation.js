@@ -11,6 +11,7 @@ import { Redirect, useHistory, useParams } from "react-router";
 import { useEffect } from "react";
 import { uiActions } from "../../../store/UI/ui-slice";
 import { removeAccents } from "../../../utils/transformFunctions";
+import { locationActions } from "../../../store/location/location-slice";
 
 const AddLocation = () => {
 	const http = useHttp();
@@ -45,7 +46,7 @@ const AddLocation = () => {
 		),
 	};
 
-	//IMAGE INPUT CONFIG
+	//DYNAMIC IMAGE INPUT CONFIG
 	const {
 		formFields: imagesFormFields,
 		setFormSubmitted: setFormGroupSubmitted,
@@ -134,8 +135,10 @@ const AddLocation = () => {
 						})
 					);
 
+					dispatch(locationActions.setAllLocations([...locations, { ...totalData, id: data.name }]));
+
 					history.push(
-						`/locations/${removeAccents(totalData.title).replace(" ", "-").toLowerCase()}-id${data.name}`
+						`/locations/${removeAccents(totalData.title).split(" ").join("-").toLowerCase()}-id${data.name}`
 					);
 				}
 
@@ -181,6 +184,7 @@ const AddLocation = () => {
 			</>
 		);
 	}
+
 	return <Redirect to="/" />;
 };
 

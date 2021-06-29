@@ -20,7 +20,7 @@ export const removeAccents = (str) => {
 		var char = AccentsMap[i][0];
 		str = str.replace(re, char);
 	}
-	return str;
+	return str.trim();
 };
 
 export const transformDataFromFirebase = (data) => {
@@ -59,5 +59,5 @@ export const getFilterArrayByKeys = (array, compareObj) => {
 };
 
 export const getLocationUrl = (title, id) => {
-	return `${removeAccents(title).trim().replace(" ", "-").toLowerCase()}-id${id}`;
+	return `${removeAccents(title).trim().split(" ").join("-").toLowerCase()}-id${id}`;
 };

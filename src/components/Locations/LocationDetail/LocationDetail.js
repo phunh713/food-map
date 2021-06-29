@@ -27,7 +27,7 @@ const LocationDetail = () => {
 	const { locations } = useSelector((state) => state.location);
 	const { user } = useSelector((state) => state.authentication);
 
-	const { sendRequest, isLoading } = useHttp(true);
+	const { sendRequest, isLoading } = useHttp();
 
 	const [ratingData, setRatingData] = useState([]);
 	const [rating, setRating] = useState(-1);
@@ -73,18 +73,17 @@ const LocationDetail = () => {
 	useEffect(() => {
 		if (locationById) {
 			sendRequest(async () => {
-				const request_getUser = fetch(
+				const request_getUser = await fetch(
 					`https://react-food-map-default-rtdb.firebaseio.com/users/${locationById.userId}.json`
 				);
 
-				const [response_getUser] = await Promise.all([request_getUser]);
-				const [data_getUser] = await Promise.all([response_getUser.json()]);
+				const response_getUser = await request_getUser.json();
 
-				if (!response_getUser.ok) {
-					throw new Error(data_getUser.error || "SOMETHING WENT WRONG WHILE FETCHING");
+				if (!request_getUser.ok) {
+					throw new Error(response_getUser.error || "SOMETHING WENT WRONG WHILE FETCHING");
 				}
 
-				setUserInfo(data_getUser);
+				setUserInfo(response_getUser);
 			});
 		}
 	}, [locationById, locationId, sendRequest]);
@@ -92,18 +91,17 @@ const LocationDetail = () => {
 	useEffect(() => {
 		if (locationById) {
 			sendRequest(async () => {
-				const request_getAllComments = fetch(
+				const request_getAllComments = await fetch(
 					`https://react-food-map-default-rtdb.firebaseio.com/comments/${locationId}.json`
 				);
 
-				const [response_getAllComments] = await Promise.all([request_getAllComments]);
-				const [data_getAllComments] = await Promise.all([response_getAllComments.json()]);
+				const response_getAllComments = await request_getAllComments.json();
 
-				if (!response_getAllComments.ok) {
-					throw new Error(data_getAllComments.error || "SOMETHING WENT WRONG WHILE FETCHING");
+				if (!request_getAllComments.ok) {
+					throw new Error(response_getAllComments.error || "SOMETHING WENT WRONG WHILE FETCHING");
 				}
 
-				const transformed_data_getAllComments = transformDataFromFirebase(data_getAllComments);
+				const transformed_data_getAllComments = transformDataFromFirebase(response_getAllComments);
 				setAllComments(transformed_data_getAllComments);
 			});
 		}
@@ -111,65 +109,62 @@ const LocationDetail = () => {
 
 	if (!locationById) return <Redirect to="/not-found" />;
 
-	return (
-		allComments &&
-		ratingData !== [] &&
-		userInfo && (
-			<>
-				<div className={classes["location-detail-wrapper"]}>
-					<Slider {...sliderSettings}>
-						{locationById.images.map((image) => (
-							<div key={image.image_url} className={classes["image-wrapper"]}>
-								<img src={image.image_url} alt="" />
-							</div>
-						))}
-					</Slider>
+	return allComments && ratingData !== [] && userInfo && !isLoading ? (
+		<>
+			<div className={classes["location-detail-wrapper"]}>
+				<Slider {...sliderSettings}>
+					{locationById.images.map((image) => (
+						<div key={image.image_url} className={classes["image-wrapper"]}>
+							<img src={image.image_url} alt="" />
+						</div>
+					))}
+				</Slider>
 
-					<div className={classes["location-detail-info-wrapper"]}>
-						<div className={classes.title}>
-							<Badge type={locationById.type}>{locationById.type}</Badge>
-							{locationById.title}
-						</div>
-						<div className={classes.address}>{locationById.addressData.full_address}</div>
-						<div className={classes["submit-info"]}>
-							<User username={userInfo.username} avatar={userInfo.avatar} />
-							<span style={{ marginLeft: 5 }}>
-								submitted this location{" "}
-								{locationById.createdAt && `on ${new Date(locationById.createdAt).toDateString()}`}{" "}
-								{locationById.note && "with a note"}
-							</span>
-						</div>
-						{locationById.note && <div className={classes.note}>{noteWithBreak}</div>}
-						<div>
-							<RatingSummary ratingData={ratingData} />
-						</div>
-						{user && <Rating id={locationById.id} ratingData={ratingData} onRate={clickRatingHandler} />}
+				<div className={classes["location-detail-info-wrapper"]}>
+					<div className={classes.title}>
+						<Badge type={locationById.type}>{locationById.type}</Badge>
+						{locationById.title}
 					</div>
+					<div className={classes.address}>{locationById.addressData.full_address}</div>
+					<div className={classes["submit-info"]}>
+						<User username={userInfo.username} avatar={userInfo.avatar} />
+						<span style={{ marginLeft: 5 }}>
+							submitted this location{" "}
+							{locationById.createdAt && `on ${new Date(locationById.createdAt).toDateString()}`}{" "}
+							{locationById.note && "with a note"}
+						</span>
+					</div>
+					{locationById.note && <div className={classes.note}>{noteWithBreak}</div>}
+					<div>
+						<RatingSummary ratingData={ratingData} />
+					</div>
+					{user && <Rating id={locationById.id} ratingData={ratingData} onRate={clickRatingHandler} />}
 				</div>
+			</div>
 
-				{!user && (
-					<div className={classes["login-note"]}>
-						Kindly <Link to={{ pathname: "/login", search: `?returnUrl=/locations/${id}` }}>Log In</Link> to
-						Rate and Leave a Comment for this Location
-					</div>
-				)}
-
-				{user && (
-					<div className={classes["location-detail-add-comment-wrapper"]}>
-						<AddComment
-							locationId={locationId}
-							authUserId={user.localId}
-							onAddComment={clickAddCommentHandler}
-						/>
-					</div>
-				)}
-
-				<div className={classes["location-detail-all-comments-wrapper"]}>
-					<CommentList comments={allComments} />
+			{!user && (
+				<div className={classes["login-note"]}>
+					Kindly <Link to={{ pathname: "/login", search: `?returnUrl=/locations/${id}` }}>Log In</Link> to
+					Rate and Leave a Comment for this Location
 				</div>
-				{isLoading && <LoadingSpinner />}
-			</>
-		)
+			)}
+
+			{user && (
+				<div className={classes["location-detail-add-comment-wrapper"]}>
+					<AddComment
+						locationId={locationId}
+						authUserId={user.localId}
+						onAddComment={clickAddCommentHandler}
+					/>
+				</div>
+			)}
+
+			<div className={classes["location-detail-all-comments-wrapper"]}>
+				<CommentList comments={allComments} />
+			</div>
+		</>
+	) : (
+		<LoadingSpinner />
 	);
 };
 

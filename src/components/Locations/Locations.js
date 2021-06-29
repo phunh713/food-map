@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router";
 import RouteAuth from "../../guard/RouteAuth";
 import useHttp from "../../hooks/useHttp";
 import { locationActions } from "../../store/location/location-slice";
+import { mapActions } from "../../store/map/map-slice";
 import AddLocation from "./AddLocation/AddLocation";
 import LocationDetail from "./LocationDetail/LocationDetail";
 import LocationList from "./LocationList/LocationList";
@@ -23,6 +24,8 @@ const Locations = () => {
 				transformedData.push({ id: key, ...data[key] });
 			}
 			dispatch(locationActions.setAllLocations(transformedData));
+            
+            dispatch(mapActions.setCenter(transformedData[0].addressData.latLng))
 		});
 	}, [dispatch, sendRequest]);
 
