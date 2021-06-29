@@ -1,6 +1,7 @@
 import Locations from "../../components/Locations/Locations";
 
-const LocationPage = () => {
+const LocationPage = (props) => {
+    console.log(props)
 	return <Locations />;
 };
 

@@ -18,10 +18,12 @@ const FormControl = ({
 	textareaCol,
 }) => {
 	const [isTyping, setIsTyping] = useState(false);
+    
 	const onChangeHandler = (e) => {
 		onChange({ id, name, value: e.target.value, index });
 		setIsTyping(true);
 	};
+
 	const onBlurHandler = (e) => {
 		onChange({ id, name, value: e.target.value, index });
 		setIsTyping(false);

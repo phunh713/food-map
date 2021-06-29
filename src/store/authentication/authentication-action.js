@@ -33,6 +33,8 @@ export const autoLoginHandler = () => {
 		} else {
 			dispatch(authenticationActions.login(null));
 		}
+
+        console.log("[AUTH THUNK] auto login")
 	};
 };
 

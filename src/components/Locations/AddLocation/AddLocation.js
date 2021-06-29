@@ -5,7 +5,6 @@ import classes from "./AddLocation.module.css";
 import useHttp from "../../../hooks/useHttp";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingSpinner from "../../UI/LoadingSpinner/LoadingSpinner";
-import { locationActions } from "../../../store/location/location-slice";
 import useLocationSearchForm from "../../../hooks/useLocationSearchForm";
 import { mapActions } from "../../../store/map/map-slice";
 import { Redirect, useHistory, useParams } from "react-router";
@@ -21,7 +20,7 @@ const AddLocation = () => {
 	const history = useHistory();
 	const params = useParams();
 
-	const editId = params?.id?.split("id")[1];
+	const editId = params?.id?.split("-id")[1];
 	const editIndex = locations.findIndex((location) => location.id === editId);
 	const editLocation = locations[editIndex];
 	const isEdit = history.location.pathname.includes("/locations/edit/") && editIndex > -1;
@@ -134,7 +133,7 @@ const AddLocation = () => {
 							type: "success",
 						})
 					);
-                    
+
 					history.push(
 						`/locations/${removeAccents(totalData.title).replace(" ", "-").toLowerCase()}-id${data.name}`
 					);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import classes from "./LocationFilter.module.css";
 import { getFilterArrayByKeys, getUniqueValue } from "../../../utils/transformFunctions";
 
@@ -32,6 +32,7 @@ const LocationFilter = ({ onSelectFilter, locations }) => {
 
 	const selectCityHandler = (e) => {
 		setCity(e.target.value);
+        setDistrict("all")
 		const _filterLocations = getFilterArrayByKeys(locations, { type, city: e.target.value });
 		onSelectFilter(_filterLocations);
 	};
@@ -41,8 +42,6 @@ const LocationFilter = ({ onSelectFilter, locations }) => {
 		const _filterLocations = getFilterArrayByKeys(locations, { type, district: e.target.value });
 		onSelectFilter(_filterLocations);
 	};
-
-	useEffect(() => {}, []);
 
 	return (
 		<div className={classes["filter-wrapper"]}>

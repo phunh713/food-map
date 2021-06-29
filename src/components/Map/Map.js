@@ -118,13 +118,11 @@ const mapStyle = [
 	},
 ];
 
-const Map = (props) => {
+const Map = () => {
 	const mapState = useSelector((state) => state.map);
 	const locations = useSelector((state) => state.location.locations);
 
-	const onLoad = (marker) => {
-		// console.log("marker: ", marker);
-	};
+
 
 	return (
 		<GoogleMap
@@ -132,7 +130,6 @@ const Map = (props) => {
 			center={mapState.center}
 			zoom={mapState.zoom}
 			options={{ styles: mapStyle }}
-			onLoad={onLoad}
 		>
 			{mapState.addLocationMarker && (
 				<MapMarker position={mapState.addLocationMarker} title="Your New Location" type="addding-marker" />

@@ -35,7 +35,7 @@ const LocationDetail = () => {
 
 	const [userInfo, setUserInfo] = useState(null);
 
-	const locationId = id.split("id")[1];
+	const locationId = id.split("-id")[1];
 	const locationById = locations.find((location) => location.id === locationId);
 
 	const clickRatingHandler = (rating) => {

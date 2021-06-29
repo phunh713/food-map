@@ -12,7 +12,7 @@ import Badge from "../../../UI/Badge/Badge";
 
 const LocationListItem = ({ latLng, title, ownerView, id, address, thumbnail, userId, type, onMouseEnter }) => {
 	const dispatch = useDispatch();
-	const { sendRequest, data, isLoading } = useHttp(true);
+	const { sendRequest, data, isLoading } = useHttp();
 	const history = useHistory();
 
 	const onClickHandler = () => {
@@ -45,9 +45,11 @@ const LocationListItem = ({ latLng, title, ownerView, id, address, thumbnail, us
 		}
 	}, [sendRequest, userId, ownerView]);
 
+    console.log(isLoading)
+
 	return (
 		<div className={classes["list-item-wrapper"]} onMouseEnter={mouseEnterHandler}>
-			{!isLoading || ownerView ? (
+			{!isLoading ? (
 				<>
 					<div onClick={onClickHandler} className={classes["list-item-thumbnail-wrapper"]}>
 						<img src={thumbnail} alt={`${title}`} />

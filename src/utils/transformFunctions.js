@@ -59,5 +59,5 @@ export const getFilterArrayByKeys = (array, compareObj) => {
 };
 
 export const getLocationUrl = (title, id) => {
-	return `${removeAccents(title).replace(" ", "-").toLowerCase()}-id${id}`;
+	return `${removeAccents(title).trim().replace(" ", "-").toLowerCase()}-id${id}`;
 };

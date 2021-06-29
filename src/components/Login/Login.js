@@ -15,6 +15,8 @@ const Login = () => {
 	const location = useLocation();
 	const { user } = useSelector((state) => state.authentication);
 
+    console.log("[LOGIN] render")
+
 	const { formFields, formValid, setFormSubmitted, resetForm, formValue } = useForm({ formConfig: loginFormConfig });
 
 	const returnUrl = new URLSearchParams(location.search).get("returnUrl");
@@ -66,9 +68,9 @@ const Login = () => {
 
 					dispatch(uiActions.setNotification({ message: "Log In Successfully", type: "success" }));
 					if (returnUrl) {
-						history.push(returnUrl);
+						history.replace(returnUrl);
 					} else {
-						history.push("/");
+						history.replace("/");
 					}
 				} else {
 					throw new Error("EMAIL_NOT_VERIFY");

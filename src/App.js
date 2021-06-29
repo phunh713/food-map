@@ -37,21 +37,19 @@ function App() {
 
 	return (
 		isLoaded && (
-			<Suspense fallback={<LoadingSpinner />}>
-				<Layout>
-					<Switch>
-						<Route path="/" exact component={LocationPage} />
-						<Route path="/login" component={Login} />
-						<Route path="/signup" component={Signup} />
-						<RouteAuth path="/locations/add-location" component={LocationPage} />
-						<RouteAuth path="/locations/edit/:id" component={LocationPage} />
-						<RouteAuth path="/account" component={Account} />
-						<Route path="/locations/:id" component={LocationPage} />
-						<Route path="/not-found" component={NotFound} />
-						<Redirect to="/not-found" />
-					</Switch>
-				</Layout>
-			</Suspense>
+		<Suspense fallback={<LoadingSpinner />}>
+			<Layout>
+				<Switch>
+					<Route path="/" exact component={LocationPage} />
+					<Route path="/locations" component={LocationPage} />
+					<Route path="/login" component={Login} />
+					<Route path="/signup" component={Signup} />
+					<RouteAuth path="/account" component={Account} />
+					<Route path="/not-found" component={NotFound} />
+					<Redirect to="/not-found" />
+				</Switch>
+			</Layout>
+		</Suspense>
 		)
 	);
 }
