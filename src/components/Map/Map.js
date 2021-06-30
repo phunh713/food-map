@@ -1,4 +1,5 @@
 import { GoogleMap } from "@react-google-maps/api";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import MapMarker from "./MapMarker/MapMarker";
 import MapPanningComponent from "./MapPanningComponent/MapPanningComponent";
@@ -120,9 +121,9 @@ const mapStyle = [
 
 const Map = () => {
 	const mapState = useSelector((state) => state.map);
-	const locations = useSelector((state) => state.location.locations);
+	const { locations, filteredLocations } = useSelector((state) => state.location);
 
-
+    const markerLocations = filteredLocations ? filteredLocations : locations
 
 	return (
 		<GoogleMap
@@ -135,7 +136,7 @@ const Map = () => {
 				<MapMarker position={mapState.addLocationMarker} title="Your New Location" type="addding-marker" />
 			)}
 
-			{locations.map((location) => (
+			{markerLocations.map((location) => (
 				<MapMarker
 					position={location.addressData.latLng}
 					title={location.title}

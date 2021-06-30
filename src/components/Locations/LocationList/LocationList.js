@@ -13,6 +13,14 @@ const LocationList = ({ locations, ownerView }) => {
 
 	const selectFilterHandler = (filterlocations) => {
 		setFilteredLocations(filterlocations);
+		dispatch(locationActions.setFilteredLocations(filterlocations));
+
+		if (filterlocations.length) {
+			dispatch(mapActions.setPanTo(filterlocations[0].addressData.latLng));
+			dispatch(locationActions.setSelectedLocation(filterlocations[0].id));
+		} else {
+			dispatch(locationActions.setSelectedLocation(null));
+		}
 	};
 
 	const mouseEnterHandler = (latLng, id) => {

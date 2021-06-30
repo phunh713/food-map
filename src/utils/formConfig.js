@@ -77,7 +77,7 @@ export const signupFormConfig = [
 
 export const addLocationFromConfig = [
 	{
-		...setFormFieldDefault("Location Type", "type", "select", { options: ["", "Cơm Tấm", "Bún Bò"] }),
+		...setFormFieldDefault("Location Type", "type", "select", { options: ["", "Cơm Tấm", "Bún Bò", "Phở", "Bánh Canh", "Mì Quảng"] }),
 		...setFormFieldValidation([{ type: "required", config: null }]),
 	},
 	{

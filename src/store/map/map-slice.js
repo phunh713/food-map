@@ -7,6 +7,7 @@ const mapSlice = createSlice({
 		panTo: { lat: 10.8230989, lng: 106.6296638 },
 		zoom: 14,
 		addLocationMarker: null,
+		hoverId: null,
 	},
 	reducers: {
 		setCenter: (state, action) => {
@@ -26,6 +27,9 @@ const mapSlice = createSlice({
 		},
 		setAddLocationMarker: (state, action) => {
 			state.addLocationMarker = action.payload;
+		},
+		setHoverId(state, action) {
+			state.hoverId = action.payload;
 		},
 	},
 });

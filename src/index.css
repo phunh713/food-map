@@ -25,13 +25,13 @@ img {
 }
 
 ::-webkit-scrollbar {
-	width: 5px;
+	width: 3px;
 }
 
 ::-webkit-scrollbar-thumb {
 	border-radius: 10px;
 	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-	background-color: #4094c5;
+	background-color: #CD113B;
 }
 
 /* GLOBAL STYPE */

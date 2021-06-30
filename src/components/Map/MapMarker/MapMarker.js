@@ -20,50 +20,58 @@ const infoBoxOptions = {
 		width: "auto",
 		overflow: "visible",
 		maxWidth: "200px",
+		display: "none",
 	},
 };
 
 const MapMarker = ({ position, title, type, id }) => {
 	const dispatch = useDispatch();
-	const [infoBoxIsShown, setInfoBoxIsShown] = useState(false);
 	const { selectedLocationId } = useSelector((state) => state.location);
+	const { hoverId } = useSelector((state) => state.map);
 	const history = useHistory();
 
 	const onClickHandler = (event) => {
 		dispatch(mapActions.setPanTo(position));
 		dispatch(mapActions.setZoomTo(15));
 		dispatch(locationActions.setSelectedLocation(id));
-        dispatch(uiActions.toggleMapShown(false))
-		history.push(`/locations/${getLocationUrl(title,id)}`);
+		dispatch(uiActions.toggleMapShown(false));
+		history.push(`/locations/${getLocationUrl(title, id)}`);
 	};
 
-	let markerIcon = comTamMarker;
+	// let markerIcon = comTamMarker;
+	let markerIcon = bunBoMarker;
 
-	if (type === "Bún Bò") markerIcon = bunBoMarker;
+	// if (type === "Bún Bò") markerIcon = bunBoMarker;
 	if (type === "addding-marker") markerIcon = addMarker;
 
-	useEffect(() => {
-		if (selectedLocationId === id) {
-			setInfoBoxIsShown(true);
-		} else {
-			setInfoBoxIsShown(false);
-		}
-	}, [setInfoBoxIsShown, selectedLocationId, id]);
+	// useEffect(() => {
+	// 	if (selectedLocationId === id) {
+	// 		setInfoBoxIsShown(true);
+	// 	} else {
+	// 		setInfoBoxIsShown(false);
+	// 	}
+	// }, [setInfoBoxIsShown, selectedLocationId, id]);
 
 	return (
 		<Fragment>
 			<Marker
 				icon={markerIcon}
 				position={position}
-				onMouseOver={() => setInfoBoxIsShown(true)}
-				onMouseOut={() => {
-					setInfoBoxIsShown(false);
-				}}
+				onMouseOver={() => dispatch(locationActions.setSelectedLocation(id))}
+				onMouseOut={() => dispatch(locationActions.setSelectedLocation(null))}
 				onClick={onClickHandler}
 			/>
-			<InfoBox position={position} options={infoBoxOptions}>
-				<div className={classes.infobox} style={{ visibility: `${infoBoxIsShown ? "visible" : "hidden"}` }}>
-					<span>[{type}] {title}</span>
+			<InfoBox
+				position={position}
+				options={{
+					...infoBoxOptions,
+					boxStyle: { ...infoBoxOptions.boxStyle, display: selectedLocationId === id ? "block" : "none" },
+				}}
+			>
+				<div className={classes.infobox}>
+					<span>
+						[{type}] {title}
+					</span>
 				</div>
 			</InfoBox>
 		</Fragment>
