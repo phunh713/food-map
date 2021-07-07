@@ -7,6 +7,8 @@ import { loginHandler } from "../../store/authentication/authentication-action";
 import { uiActions } from "../../store/UI/ui-slice";
 import { loginFormConfig } from "../../utils/formConfig";
 import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
+import LoginWithGoogle from "./LoginWithGoogle/LoginWithGoogle";
+import classes from "./Login.module.css";
 
 const Login = () => {
 	const http = useHttp();
@@ -15,7 +17,7 @@ const Login = () => {
 	const location = useLocation();
 	const { user } = useSelector((state) => state.authentication);
 
-    console.log("[LOGIN] render")
+	console.log("[LOGIN] render");
 
 	const { formFields, formValid, setFormSubmitted, resetForm, formValue } = useForm({ formConfig: loginFormConfig });
 
@@ -93,6 +95,9 @@ const Login = () => {
 				</div>
 			</form>
 			{http.isLoading && <LoadingSpinner />}
+			<div className={classes["third-party-auth"]}>
+				<LoginWithGoogle />
+			</div>
 		</>
 	);
 };

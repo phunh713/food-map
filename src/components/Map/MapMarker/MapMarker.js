@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
+// import comTamMarker from "../../../assets/images/com-tam-marker.png";
 import { Marker, InfoBox } from "@react-google-maps/api";
 import { Fragment } from "react";
 import classes from "./MapMaker.module.css";
-import comTamMarker from "../../../assets/images/com-tam-marker.png";
 import bunBoMarker from "../../../assets/images/bun-bo-marker.png";
 import addMarker from "../../../assets/images/add-marker.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,14 +20,14 @@ const infoBoxOptions = {
 		width: "auto",
 		overflow: "visible",
 		maxWidth: "200px",
-		display: "none",
+		display: "none"
 	},
 };
 
 const MapMarker = ({ position, title, type, id }) => {
 	const dispatch = useDispatch();
 	const { selectedLocationId } = useSelector((state) => state.location);
-	const { hoverId } = useSelector((state) => state.map);
+	// const { hoverId } = useSelector((state) => state.map);
 	const history = useHistory();
 
 	const onClickHandler = (event) => {

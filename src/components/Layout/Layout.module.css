@@ -11,7 +11,7 @@
 .main {
 	padding: 20px 20px;
 	margin-top: 63px;
-	background: #e8eaed;
+	background: #f4f4f4;
 	height: calc(100vh - 63px);
 	overflow-y: scroll;
 }

@@ -1,5 +1,4 @@
 import { GoogleMap } from "@react-google-maps/api";
-import { useState } from "react";
 import { useSelector } from "react-redux";
 import MapMarker from "./MapMarker/MapMarker";
 import MapPanningComponent from "./MapPanningComponent/MapPanningComponent";
@@ -12,6 +11,15 @@ const containerStyle = {
 const mapStyle = [
 	{
 		featureType: "administrative",
+		elementType: "labels.text.fill",
+		stylers: [
+			{
+				color: "#444444",
+			},
+		],
+	},
+	{
+		featureType: "administrative.locality",
 		elementType: "all",
 		stylers: [
 			{
@@ -24,13 +32,94 @@ const mapStyle = [
 		elementType: "all",
 		stylers: [
 			{
+				color: "#f2f2f2",
+			},
+		],
+	},
+	{
+		featureType: "landscape.man_made",
+		elementType: "all",
+		stylers: [
+			{
+				visibility: "on",
+			},
+		],
+	},
+	{
+		featureType: "poi.attraction",
+		elementType: "all",
+		stylers: [
+			{
 				visibility: "off",
 			},
 		],
 	},
 	{
-		featureType: "poi",
+		featureType: "poi.business",
+		elementType: "labels",
+		stylers: [
+			{
+				visibility: "off",
+			},
+		],
+	},
+	{
+		featureType: "poi.government",
+		elementType: "labels",
+		stylers: [
+			{
+				visibility: "off",
+			},
+		],
+	},
+	{
+		featureType: "poi.medical",
+		elementType: "labels",
+		stylers: [
+			{
+				visibility: "off",
+			},
+		],
+	},
+	{
+		featureType: "poi.park",
+		elementType: "labels",
+		stylers: [
+			{
+				visibility: "off",
+			},
+		],
+	},
+	{
+		featureType: "poi.place_of_worship",
+		elementType: "labels",
+		stylers: [
+			{
+				visibility: "off",
+			},
+		],
+	},
+	{
+		featureType: "poi.school",
+		elementType: "labels",
+		stylers: [
+			{
+				visibility: "off",
+			},
+		],
+	},
+	{
+		featureType: "poi.sports_complex",
 		elementType: "all",
+		stylers: [
+			{
+				visibility: "on",
+			},
+		],
+	},
+	{
+		featureType: "poi.sports_complex",
+		elementType: "labels",
 		stylers: [
 			{
 				visibility: "off",
@@ -42,29 +131,66 @@ const mapStyle = [
 		elementType: "all",
 		stylers: [
 			{
+				saturation: -100,
+			},
+			{
+				lightness: 45,
+			},
+		],
+	},
+	{
+		featureType: "road",
+		elementType: "geometry.fill",
+		stylers: [
+			{
+				saturation: "0",
+			},
+			{
+				visibility: "on",
+			},
+			{
+				color: "#fefefe",
+			},
+		],
+	},
+	{
+		featureType: "road",
+		elementType: "labels.text",
+		stylers: [
+			{
+				color: "#303030",
+			},
+		],
+	},
+	{
+		featureType: "road",
+		elementType: "labels.text.fill",
+		stylers: [
+			{
+				color: "#aca9a9",
+			},
+			{
+				visibility: "off",
+			},
+		],
+	},
+	{
+		featureType: "road",
+		elementType: "labels.text.stroke",
+		stylers: [
+			{
+				weight: "0.64",
+			},
+			{
+				color: "#393939",
+			},
+			{
 				visibility: "on",
 			},
 		],
 	},
 	{
-		featureType: "road.local",
-		stylers: [
-			{
-				visibility: "simplified",
-			},
-		],
-	},
-	{
-		featureType: "road.local",
-		elementType: "geometry.fill",
-		stylers: [
-			{
-				color: "#ebebeb",
-			},
-		],
-	},
-	{
-		featureType: "transit",
+		featureType: "road.highway",
 		elementType: "all",
 		stylers: [
 			{
@@ -73,8 +199,17 @@ const mapStyle = [
 		],
 	},
 	{
-		featureType: "transit",
-		elementType: "labels",
+		featureType: "road.highway",
+		elementType: "geometry.fill",
+		stylers: [
+			{
+				color: "#f9bc1e",
+			},
+		],
+	},
+	{
+		featureType: "road.highway",
+		elementType: "geometry.stroke",
 		stylers: [
 			{
 				visibility: "off",
@@ -82,25 +217,7 @@ const mapStyle = [
 		],
 	},
 	{
-		featureType: "water",
-		elementType: "all",
-		stylers: [
-			{
-				visibility: "on",
-			},
-		],
-	},
-	{
-		featureType: "water",
-		elementType: "geometry",
-		stylers: [
-			{
-				color: "#12608d",
-			},
-		],
-	},
-	{
-		featureType: "water",
+		featureType: "road.highway",
 		elementType: "labels.text.fill",
 		stylers: [
 			{
@@ -109,11 +226,44 @@ const mapStyle = [
 		],
 	},
 	{
-		featureType: "water",
+		featureType: "road.highway",
 		elementType: "labels.text.stroke",
 		stylers: [
 			{
+				weight: "2.99",
+			},
+			{
+				visibility: "on",
+			},
+		],
+	},
+	{
+		featureType: "road.arterial",
+		elementType: "labels.icon",
+		stylers: [
+			{
 				visibility: "off",
+			},
+		],
+	},
+	{
+		featureType: "transit",
+		elementType: "all",
+		stylers: [
+			{
+				visibility: "off",
+			},
+		],
+	},
+	{
+		featureType: "water",
+		elementType: "all",
+		stylers: [
+			{
+				color: "#46bcec",
+			},
+			{
+				visibility: "on",
 			},
 		],
 	},
@@ -123,7 +273,7 @@ const Map = () => {
 	const mapState = useSelector((state) => state.map);
 	const { locations, filteredLocations } = useSelector((state) => state.location);
 
-    const markerLocations = filteredLocations ? filteredLocations : locations
+	const markerLocations = filteredLocations ? filteredLocations : locations;
 
 	return (
 		<GoogleMap

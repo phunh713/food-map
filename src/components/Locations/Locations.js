@@ -8,6 +8,7 @@ import { mapActions } from "../../store/map/map-slice";
 import AddLocation from "./AddLocation/AddLocation";
 import LocationDetail from "./LocationDetail/LocationDetail";
 import LocationList from "./LocationList/LocationList";
+import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
 
 const Locations = () => {
 	const { sendRequest, isLoading } = useHttp(true);
@@ -24,22 +25,22 @@ const Locations = () => {
 				transformedData.push({ id: key, ...data[key] });
 			}
 			dispatch(locationActions.setAllLocations(transformedData));
-            
-            dispatch(mapActions.setCenter(transformedData[0].addressData.latLng))
+
+			dispatch(mapActions.setCenter(transformedData[0].addressData.latLng));
 		});
 	}, [dispatch, sendRequest]);
 
-	return (
-		!isLoading && (
-			<Switch>
-				<Route path="/" exact>
-					<LocationList locations={locations} />
-				</Route>
-				<RouteAuth path="/locations/add-location" component={AddLocation} />
-				<RouteAuth path="/locations/edit/:id" component={AddLocation} />
-				<Route path="/locations/:id" component={LocationDetail} />
-			</Switch>
-		)
+	return !isLoading ? (
+		<Switch>
+			<Route path="/" exact>
+				<LocationList locations={locations} />
+			</Route>
+			<RouteAuth path="/locations/add-location" component={AddLocation} />
+			<RouteAuth path="/locations/edit/:id" component={AddLocation} />
+			<Route path="/locations/:id" component={LocationDetail} />
+		</Switch>
+	) : (
+		<LoadingSpinner />
 	);
 };
 

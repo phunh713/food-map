@@ -1,8 +1,9 @@
 .infobox {
 	background-color: #fff;
+    font-weight: bold;
 	padding: 5px;
 	transform: translate(-50%, calc(-100% - 49px));
     padding: 10px;
     font-size: 1.2em;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    box-shadow: rgba(48, 48, 48, 0.2) 0px 2px 8px 0px;
 }
