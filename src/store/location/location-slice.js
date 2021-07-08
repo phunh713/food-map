@@ -4,12 +4,18 @@ const locationSlice = createSlice({
 	name: "location",
 	initialState: {
 		locations: [],
-        filteredLocations: null,
+		filteredLocations: null,
 		selectedLocationId: null,
 	},
 	reducers: {
 		setAllLocations: (state, action) => {
 			state.locations = action.payload;
+		},
+		updateLocation: (state, action) => {
+			const updateLocationIndex = state.locations.findIndex((location) => location.id === action.payload.id);
+			if (updateLocationIndex >= 0) {
+				state.locations[updateLocationIndex] = action.payload;
+			}
 		},
 		setFilteredLocations: (state, action) => {
 			state.filteredLocations = action.payload;

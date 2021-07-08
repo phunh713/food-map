@@ -77,7 +77,9 @@ export const signupFormConfig = [
 
 export const addLocationFromConfig = [
 	{
-		...setFormFieldDefault("Location Type", "type", "select", { options: ["", "Cơm Tấm", "Bún Bò", "Hủ Tiếu", "Phở", "Bánh Canh", "Mì Quảng", "Lẩu", "Ốc"] }),
+		...setFormFieldDefault("Location Type", "type", "select", {
+			options: ["", "Cơm Tấm", "Bún Bò", "Hủ Tiếu", "Phở", "Bánh Canh", "Mì Quảng", "Lẩu", "Ốc"],
+		}),
 		...setFormFieldValidation([{ type: "required", config: null }]),
 	},
 	{
@@ -87,8 +89,11 @@ export const addLocationFromConfig = [
 	{
 		placeholder: "address",
 	},
+	// {
+	// 	placeholder: "images",
+	// },
 	{
-		placeholder: "images",
+		placeholder: "imagesUpload",
 	},
 	{
 		...setFormFieldDefault("Note", "note", "textarea", { row: 10 }),
@@ -141,15 +146,19 @@ export const addComment = [
 ];
 
 export const cityFilter = (cities) => {
-	return [{
-		...setFormFieldDefault("City", "city", "select", { options: cities }),
-		...setFormFieldValidation(),
-	}];
+	return [
+		{
+			...setFormFieldDefault("City", "city", "select", { options: cities }),
+			...setFormFieldValidation(),
+		},
+	];
 };
 
 export const districtFilter = (districts) => {
-	return [{
-		...setFormFieldDefault("District", "district", "select", { options: districts }),
-		...setFormFieldValidation(),
-	}];
+	return [
+		{
+			...setFormFieldDefault("District", "district", "select", { options: districts }),
+			...setFormFieldValidation(),
+		},
+	];
 };

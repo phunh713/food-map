@@ -1,13 +1,20 @@
 import React from "react";
 import { GoogleLogin } from "react-google-login";
 import { useDispatch } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
 import useHttp from "../../../hooks/useHttp";
 import { loginHandler } from "../../../store/authentication/authentication-action";
+import { uiActions } from "../../../store/UI/ui-slice";
 import LoadingSpinner from "../../UI/LoadingSpinner/LoadingSpinner";
 
 function LoginWithGoogle() {
 	const dispatch = useDispatch();
 	const { sendRequest, isLoading } = useHttp();
+	const location = useLocation();
+    const history = useHistory()
+
+	const returnUrl = new URLSearchParams(location.search).get("returnUrl");
+
 	const onGoogleResponse = (response) => {
 		const { tokenId } = response;
 		sendRequest(async () => {
@@ -24,9 +31,10 @@ function LoginWithGoogle() {
 					}),
 				}
 			);
-			if (!response_loginWithGoogle.ok) throw new Error("can't Login with Google Account");
-
 			const data_loginWithGoogle = await response_loginWithGoogle.json();
+
+			if (!response_loginWithGoogle.ok)
+				throw new Error(data_loginWithGoogle.error.message || "can't Login with Google Account");
 
 			//CHECK IF THIS USER HAS DATA ON MY SERVER
 			const response_getUserInfo = await fetch(
@@ -40,8 +48,6 @@ function LoginWithGoogle() {
 			const { username, avatar } = data_getLoginUserInfo;
 
 			//IF AVATAR or USERNAME IS NULL, UPDATE THEM WITH INFO FROM GOOGLE
-			console.log(data_loginWithGoogle);
-
 			const response_addUser = await fetch(
 				`https://react-food-map-default-rtdb.firebaseio.com/users/${data_loginWithGoogle.localId}.json?auth=${data_loginWithGoogle.idToken}`,
 				{
@@ -68,6 +74,13 @@ function LoginWithGoogle() {
 					avatar: avatar || data_loginWithGoogle.photoUrl,
 				})
 			);
+
+			dispatch(uiActions.setNotification({ message: "Log In Successfully", type: "success" }));
+			if (returnUrl) {
+				history.replace(returnUrl);
+			} else {
+				history.replace("/");
+			}
 		});
 	};
 	return (

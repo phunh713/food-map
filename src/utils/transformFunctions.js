@@ -61,3 +61,22 @@ export const getFilterArrayByKeys = (array, compareObj) => {
 export const getLocationUrl = (title, id) => {
 	return `${removeAccents(title).trim().split(" ").join("-").toLowerCase()}-id${id}`;
 };
+
+export const getRenameDuplicateFile = (uploadFile, files) => {
+	if (!files.length) return uploadFile.name;
+
+	let duplicatedImgIdx = files.findIndex((f) => f.name === uploadFile.name);
+	let newName = uploadFile.name;
+
+	if (duplicatedImgIdx >= 0) {
+		const type = "." + uploadFile.file.type.split("/")[1];
+		newName = uploadFile.name.split(type)[0] + "-copy" + type;
+        uploadFile.name = newName
+
+		if (files.find((f) => f.name === newName)) {
+			newName = getRenameDuplicateFile(uploadFile, files);
+		}
+	}
+
+	return newName;
+};
